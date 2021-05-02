@@ -15,6 +15,10 @@ namespace MusicLibrary.Repository.Shared.MusicLibraryDb
         {
         }
 
+        public DbSet<Artist> Artists { get; set; }
+
+        public DbSet<Song> Songs { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" || Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Staging")
@@ -34,9 +38,6 @@ namespace MusicLibrary.Repository.Shared.MusicLibraryDb
 
             builder.Entity<Song>()
                 .HasIndex(x => x.Id)
-                .IsUnique();
-            builder.Entity<Song>()
-                .HasIndex(x => x.Name)
                 .IsUnique();
             builder.Entity<Song>()
                 .HasOne(x => x.Artist)

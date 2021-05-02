@@ -8,7 +8,7 @@ namespace MusicLibrary.Repository.Shared.MusicLibraryDb.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Artist",
+                name: "Artists",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -17,20 +17,20 @@ namespace MusicLibrary.Repository.Shared.MusicLibraryDb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Artist", x => x.Id);
+                    table.PrimaryKey("PK_Artists", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Song",
+                name: "Songs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    Year = table.Column<int>(type: "integer", nullable: false),
+                    Year = table.Column<int>(type: "integer", nullable: true),
                     Shortname = table.Column<string>(type: "text", nullable: true),
-                    Bpm = table.Column<int>(type: "integer", nullable: false),
-                    Duration = table.Column<int>(type: "integer", nullable: false),
+                    Bpm = table.Column<int>(type: "integer", nullable: true),
+                    Duration = table.Column<int>(type: "integer", nullable: true),
                     Genre = table.Column<string>(type: "text", nullable: true),
                     SpotifyId = table.Column<string>(type: "text", nullable: true),
                     Album = table.Column<string>(type: "text", nullable: true),
@@ -38,52 +38,46 @@ namespace MusicLibrary.Repository.Shared.MusicLibraryDb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Song", x => x.Id);
+                    table.PrimaryKey("PK_Songs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Song_Artist_ArtistId",
+                        name: "FK_Songs_Artists_ArtistId",
                         column: x => x.ArtistId,
-                        principalTable: "Artist",
+                        principalTable: "Artists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Artist_Id",
-                table: "Artist",
+                name: "IX_Artists_Id",
+                table: "Artists",
                 column: "Id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Artist_Name",
-                table: "Artist",
+                name: "IX_Artists_Name",
+                table: "Artists",
                 column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Song_ArtistId",
-                table: "Song",
+                name: "IX_Songs_ArtistId",
+                table: "Songs",
                 column: "ArtistId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Song_Id",
-                table: "Song",
+                name: "IX_Songs_Id",
+                table: "Songs",
                 column: "Id",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Song_Name",
-                table: "Song",
-                column: "Name",
                 unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Song");
+                name: "Songs");
 
             migrationBuilder.DropTable(
-                name: "Artist");
+                name: "Artists");
         }
     }
 }

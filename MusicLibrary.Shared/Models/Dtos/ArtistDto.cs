@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicLibrary.Shared.Models.Entities
+namespace MusicLibrary.Shared.Models.Dtos
 {
-    public class Artist
+    public class ArtistDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        public IList<Song> Songs { get; set; }
     }
 }

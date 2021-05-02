@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MusicLibrary.DatabaseSeeder.Services.Interfaces;
+using MusicLibrary.Shared.Models.Dtos;
 using MusicLibrary.Shared.Models.Entities;
 using Newtonsoft.Json;
 using System;
@@ -22,11 +23,11 @@ namespace MusicLibrary.DatabaseSeeder.Services
             _configuration = configuration;
         }
 
-        public async Task<IEnumerable<Song>> GetSongsAsync()
+        public async Task<IEnumerable<SongDto>> GetSongsAsync()
         {
             var apiResponse = await _httpClient.GetStringAsync(_configuration.GetValue<string>("FileLocations:Songs"));
 
-            return JsonConvert.DeserializeObject<IEnumerable<Song>>(apiResponse);
+            return JsonConvert.DeserializeObject<IEnumerable<SongDto>>(apiResponse);
         }
     }
 }

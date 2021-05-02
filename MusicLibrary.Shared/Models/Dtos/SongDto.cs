@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicLibrary.Shared.Models.Entities
+namespace MusicLibrary.Shared.Models.Dtos
 {
-    public class Song
+    public class SongDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -17,8 +17,6 @@ namespace MusicLibrary.Shared.Models.Entities
         public string Genre { get; set; }
         public string SpotifyId { get; set; }
         public string Album { get; set; }
-
-        public Artist Artist { get; set; }
-        public int ArtistId { get; set; }
+        public string Artist { get; set; }
     }
 }

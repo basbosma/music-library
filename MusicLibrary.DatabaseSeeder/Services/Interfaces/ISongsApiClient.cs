@@ -1,4 +1,5 @@
-﻿using MusicLibrary.Shared.Models.Entities;
+﻿using MusicLibrary.Shared.Models.Dtos;
+using MusicLibrary.Shared.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace MusicLibrary.DatabaseSeeder.Services.Interfaces
 {
     public interface ISongsApiClient
     {
-        Task<IEnumerable<Song>> GetSongsAsync();
+        Task<IEnumerable<SongDto>> GetSongsAsync();
     }
 }
