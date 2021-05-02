@@ -1,16 +1,53 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using MusicLibrary.Repository.Interfaces;
+using MusicLibrary.Shared;
+using MusicLibrary.Shared.Models.Dtos;
+using static Microsoft.AspNetCore.Http.StatusCodes;
 
-namespace MusicLibrary.Api.Controllers
+namespace CrmPwa.Api.Controllers
 {
-    public class ArtistsController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ArtistsController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IArtistsRepository _artistsRepository;
+        private readonly ILogger<ArtistsController> _logger;
+        private readonly ApiResponse _invalidData;
+
+        public ArtistsController(
+            IArtistsRepository artistsRepository,
+            ILogger<ArtistsController> logger)
         {
-            return View();
+            _artistsRepository = artistsRepository;
+            _logger = logger;
+            _invalidData = new ApiResponse(Status400BadRequest, "Invalid Data");
+        }
+
+        [HttpGet]
+        public async Task<ApiResponse> ReadAllArtistsAsync(string bandName)
+        {
+            return ModelState.IsValid ? await _artistsRepository.ReadArtistsAsync(bandName) : _invalidData;
+        }
+
+        [HttpPut]
+        public async Task<ApiResponse> UpdateArtistsAsync([FromBody] IEnumerable<ArtistDto> updatedArtists)
+        {
+            return ModelState.IsValid ? await _artistsRepository.UpdateArtistsAsync(updatedArtists) : _invalidData;
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ApiResponse> DeleteArtistAsync(int id)
+        {
+            return ModelState.IsValid ? await _artistsRepository.DeleteArtistAsync(id) : _invalidData;
+        }
+
+        [HttpPost]
+        public async Task<ApiResponse> CreateArtistsAsync([FromBody] IEnumerable<ArtistDto> newArtists)
+        {
+            return ModelState.IsValid ? await _artistsRepository.CreateArtistsAsync(newArtists) : _invalidData;
         }
     }
 }

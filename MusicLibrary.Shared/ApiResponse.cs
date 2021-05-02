@@ -3,7 +3,7 @@ using System;
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace CrmPwa.Shared.NET
+namespace MusicLibrary.Shared
 {
     [Serializable]
     [DataContract]

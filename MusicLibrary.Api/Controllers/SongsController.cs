@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
-using CrmPwa.Shared.NET;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MusicLibrary.Repository.Interfaces;
+using MusicLibrary.Shared;
+using MusicLibrary.Shared.Models.Dtos;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace CrmPwa.Api.Controllers
@@ -25,7 +27,25 @@ namespace CrmPwa.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ApiResponse> GetAllSongsAsync()
+        public async Task<ApiResponse> ReadAllSongsAsync(string genre)
+        {
+            return ModelState.IsValid ? null : _invalidData;
+        }
+
+        [HttpPut]
+        public async Task<ApiResponse> UpdateSongsAsync(IEnumerable<SongDto> updatedSongs)
+        {
+            return ModelState.IsValid ? null : _invalidData;
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<ApiResponse> DeleteSongAsync()
+        {
+            return ModelState.IsValid ? null : _invalidData;
+        }
+
+        [HttpPost]
+        public async Task<ApiResponse> CreateSongsAsync()
         {
             return ModelState.IsValid ? null : _invalidData;
         }
