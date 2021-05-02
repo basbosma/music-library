@@ -29,25 +29,25 @@ namespace CrmPwa.Api.Controllers
         [HttpGet]
         public async Task<ApiResponse> ReadAllSongsAsync(string genre)
         {
-            return ModelState.IsValid ? null : _invalidData;
+            return ModelState.IsValid ? await _songsRepository.ReadSongsAsync(genre) : _invalidData;
         }
 
         [HttpPut]
-        public async Task<ApiResponse> UpdateSongsAsync(IEnumerable<SongDto> updatedSongs)
+        public async Task<ApiResponse> UpdateSongsAsync([FromBody] IEnumerable<SongDto> updatedSongs)
         {
-            return ModelState.IsValid ? null : _invalidData;
+            return ModelState.IsValid ? await _songsRepository.UpdateSongsAsync(updatedSongs) : _invalidData;
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ApiResponse> DeleteSongAsync()
+        public async Task<ApiResponse> DeleteSongAsync(int id)
         {
-            return ModelState.IsValid ? null : _invalidData;
+            return ModelState.IsValid ? await _songsRepository.DeleteSongAsync(id) : _invalidData;
         }
 
         [HttpPost]
-        public async Task<ApiResponse> CreateSongsAsync()
+        public async Task<ApiResponse> CreateSongsAsync([FromBody] IEnumerable<SongDto> newSongs)
         {
-            return ModelState.IsValid ? null : _invalidData;
+            return ModelState.IsValid ? await _songsRepository.CreateSongsAsync(newSongs) : _invalidData;
         }
     }
 }
